@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+  - field.field.node.blood_sugar.field_blood_sugar
+  - field.field.node.blood_sugar.field_ref_user
+  - node.type.blood_sugar
+  module:
+  - text
+  - user
+id: node.blood_sugar.default
+targetEntityType: node
+bundle: blood_sugar
+mode: default
+content:
+  field_blood_sugar:
+    label: above
+    type: string
+    weight: 1
+    settings: {}
+    third_party_settings: {}
+    region: content
+  field_ref_user:
+    label: above
+    type: entity_reference_label
+    weight: 2
+    settings:
+      link: true
+    third_party_settings: {}
+    region: content

@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+    - prescription_management_system
+name: 'Prescription'
+type: prescription
+description: 'Used to record the prescription of an user.'
+help: 'Used to record prescription of an user'
+new_revision: false
+preview_mode: 1
+display_submitted: true

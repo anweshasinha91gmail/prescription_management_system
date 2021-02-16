@@ -1,0 +1,9 @@
+name: 'Prescription Management System'
+type: module
+description: 'A module which records blood Sugar and manages the prescription'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - drupal:views_autocomplete_filters
+  - drupal:unique_field_ajax
+

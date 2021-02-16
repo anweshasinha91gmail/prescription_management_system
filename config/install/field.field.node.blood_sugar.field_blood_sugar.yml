@@ -1,0 +1,20 @@
+langcode: en
+dependencies:
+  config:
+  - field.storage.node.field_blood_sugar
+  - node.type.blood_sugar
+  module:
+    - text
+id: node.blood_sugar.field_blood_sugar
+field_name: field_blood_sugar
+entity_type: node
+bundle: blood_sugar
+label: 'Blood Sugar'
+description: 'Blood Sugar Value'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+    display_summary: true
+field_type: string

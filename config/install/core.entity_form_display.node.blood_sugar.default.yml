@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+  - field.field.node.blood_sugar.field_blood_sugar
+  - field.field.node.blood_sugar.field_ref_user
+  - node.type.blood_sugar
+  module:
+  - text
+  - user
+id: node.blood_sugar.default
+targetEntityType: node
+bundle: blood_sugar
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 15
+    region: content
+    settings: {}
+    third_party_settings: {  }
+  field_blood_sugar:
+    type: string_textfield
+    weight: 100
+    settings:
+      size: 30
+      placeholder: ''
+    third_party_settings: {}
+  field_ref_user:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+    region: content
+hidden: {}

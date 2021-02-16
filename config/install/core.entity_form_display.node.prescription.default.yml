@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+  - field.field.node.prescription.field_prescription
+  - field.field.node.prescription.field_ref_user
+  - field.field.node.prescription.field_description
+  - node.type.prescription
+  module:
+  - image
+  - user
+  - text
+id: node.prescription.default
+targetEntityType: node
+bundle: prescription
+mode: default
+content:
+  field_prescription:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_ref_user:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+    region: content
+  field_description:
+    type: text_textarea_with_summary
+    weight: 13
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+    region: content
+hidden: {}

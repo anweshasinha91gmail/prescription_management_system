@@ -1,0 +1,24 @@
+prescription_management_system.set_user_password:
+  path: '/set-password/{encode_data}'
+  defaults:
+    _form: '\Drupal\prescription_management_system\Form\SetUserPassword'
+    _title: 'Set Password'
+  requirements:
+    _access: 'TRUE'
+
+prescription_management_system.my_space_page_controller_my_space_page:
+  path: '/my-space'
+  defaults:
+    _controller: '\Drupal\prescription_management_system\Controller\MySpacePageController::my_space_page'
+    _title: 'My Space Page'
+  requirements:
+    _role: 'authenticated'
+    _access: 'TRUE'
+
+prescription_management_system.admin_dashboard_controller_admin_dashboard_page:
+  path: '/admin/admin-dashboard'
+  defaults:
+    _controller: '\Drupal\prescription_management_system\Controller\AdminDashboardController::admin_dashboard_page'
+    _title: 'Admin Dashboard'
+  requirements:
+    _permission: 'administer prescription_management_system'

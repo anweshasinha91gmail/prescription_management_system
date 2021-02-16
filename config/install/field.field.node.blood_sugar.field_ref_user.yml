@@ -1,0 +1,36 @@
+langcode: en
+dependencies:
+  config:
+  - field.storage.node.field_ref_user
+  - node.type.blood_sugar
+  module:
+    - unique_field_ajax
+    - user
+third_party_settings:
+  unique_field_ajax:
+    unique: 0
+    per_lang: 0
+    use_ajax: 0
+    message: ''
+id: node.blood_sugar.field_ref_user
+field_name: field_ref_user
+entity_type: node
+bundle: blood_sugar
+label: 'User'
+description: 'References to the user whose blood sugar has been recorded'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+    display_summary: true
+field_type: entity_reference

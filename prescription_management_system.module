@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Contains prescription_management_system.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+/**
+	 * Implements hook_mail().
+	 */
+	function prescription_management_system_mail($key, &$message, $params) {
+    switch ($key) {
+      case 'verify_user':
+        $message['from'] = \Drupal::config('system.site')->get('mail');
+	      $message['headers'] = array(
+	        'content-type' => 'text/html',
+          'MIME-Version' => '1.0',
+	      );
+	      $message['subject'] = $params['subject'];
+	      $message['body'][] = $params['message'];
+	      break;
+    }
+  }
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function prescription_management_system_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+    $form['actions']['submit']['#submit'][] = 'custom_submit_handler_for_user';
+}
+/**
+ * Custom form submit handler for user submit, which will verify user's email id and set his password.
+ */
+function custom_submit_handler_for_user(array $form, FormStateInterface $form_state) {
+    //Get value of mail and field_full_name.
+        $user_email = $form_state->getValue('mail');
+        $user_full_name = $form_state->getValue('field_user_full_name');
+    //Get user id form the newly created user by loading the user through email.
+        $user_detail = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->loadByProperties([
+        'mail' => $user_email,
+        ]);
+        $uid = $user_detail->id();
+    //Base64Encode the id in the verification link.
+        $random_num = rand ( 1000, 9999);
+        $str = '2021'.$random_num.$uid.'#!email_verify';
+        $encode_str = base64_encode($str);
+    //Mail a verification link to the registered user
+        $host = \Drupal::request()->getSchemeAndHttpHost();
+        $mail_manager = \Drupal::service('plugin.manager.mail');
+        $module = 'prescription_management_system';
+        $key = 'verify_user';
+        $to = $user_email;
+        $params['message'] = "Thank you for registering in our site. Please click on the link below to set your password. <br/> <a href='".$host."/set-password/".$encode_str."'>".$host."/set-password/".$encode_str."</a>";
+        $params['subject'] = 'Email Verification';
+        $send = true;
+        $result = $mail_manager->mail($module, $key, $to, $params, NULL, $send);
+        if ($result['result'] !== true) {
+          drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+        }
+        else {
+          drupal_set_message(t('A verification mail has been sent in your mail id which includes next steps that has to be followed.'));
+        }
+
+}

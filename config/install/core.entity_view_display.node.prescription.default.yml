@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  config:
+  - field.field.node.prescription.field_prescription
+  - field.field.node.prescription.field_ref_user
+  - field.field.node.prescription.field_description
+  - node.type.prescription
+  module:
+  - image
+  - text
+  - user
+id: node.prescription.default
+targetEntityType: node
+bundle: prescription
+mode: default
+content:
+  field_prescription:
+    type: image
+    weight: 1
+    region: content
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings: {}
+    label: above
+  field_ref_user:
+    label: above
+    type: entity_reference_label
+    weight: 2
+    settings:
+      link: true
+    third_party_settings: {}
+    region: content
+  field_description:
+    label: above
+    type: text_default
+    weight: 3
+    region: content
+    settings: {}
+    third_party_settings: {}

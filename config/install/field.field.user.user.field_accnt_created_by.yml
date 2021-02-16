@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+  - field.storage.user.field_accnt_created_by
+  module:
+    - unique_field_ajax
+    - user
+third_party_settings:
+  unique_field_ajax:
+    unique: 0
+    per_lang: 0
+    use_ajax: 0
+    message: ''
+id: user.user.field_accnt_created_by
+field_name: field_accnt_created_by
+entity_type: user
+bundle: user
+label: 'Account Created By'
+description: 'References to the user who has created the account'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference
+

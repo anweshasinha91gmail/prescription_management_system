@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+    - prescription_management_system
+name: 'Blood Sugar'
+type: blood_sugar
+description: 'Used to record blood sugar of an user.'
+help: 'Used to record blood sugar of an user'
+new_revision: false
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,16 @@
+langcode: en
+dependencies:
+  enforced:
+    module:
+    - prescription_management_system
+  module:
+  - node
+id: node.field_blood_sugar
+field_name: field_blood_sugar
+entity_type: node
+type: string
+settings:
+  max_length: 255
+module: core
+locked: false
+cardinality: 1
