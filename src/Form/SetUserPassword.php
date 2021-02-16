@@ -22,26 +22,41 @@ class SetUserPassword extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['user_password'] = [
-      '#type' => 'password',
-      '#title' => $this->t('Password'),
-      '#maxlength' => 64,
-      '#size' => 64,
-      '#weight' => '0',
-    ];
-    $form['confirm_password'] = [
-      '#type' => 'password',
-      '#title' => $this->t('Confirm Password'),
-      '#maxlength' => 64,
-      '#size' => 64,
-      '#weight' => '0',
-    ];
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Submit'),
-    ];
-
-    return $form;
+    //Get the encoded data from the url.
+    $encode_value = \Drupal::request()->query->get('encode_data');
+    //Base64Decode it.
+    $decode_encode_value = base64_decode($encode_value);
+    //Explode the decoded vale
+    $explode_arr = explode("2021", $decode_encode_value);
+    $explode_back_arr = explode("#!email_verify", $explode_arr[1]);
+    //Get the ID after the 4 digit randaom number from the string
+    $uid = substr($explode_back_arr[0],4);
+    $user_storage = \Drupal::entityManager()->getStorage('user');
+    $account = $user_storage->load($uid);
+    if($account->field_password_set->value == 0) {
+      $form['user_password'] = [
+        '#type' => 'password',
+        '#title' => $this->t('Password'),
+        '#maxlength' => 64,
+        '#size' => 64,
+        '#weight' => '0',
+      ];
+      $form['confirm_password'] = [
+        '#type' => 'password',
+        '#title' => $this->t('Confirm Password'),
+        '#maxlength' => 64,
+        '#size' => 64,
+        '#weight' => '0',
+      ];
+      $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Submit'),
+      ];
+  
+      return $form;
+    } else {
+      drupal_set_message(t('The link has expired!'), 'error', TRUE);
+    }
   }
 
   /**
@@ -81,6 +96,7 @@ class SetUserPassword extends FormBase {
       if(is_object($account)) {
             // Set the new password
             $account->setPassword($pass);
+            $account->set('field_password_set',1);
             // Save the user
             $account->save();
             // Programatically make the user login
