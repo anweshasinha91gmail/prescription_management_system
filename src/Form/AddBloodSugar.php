@@ -45,7 +45,7 @@ class AddBloodSugar extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
       // @TODO: Validate fields.
       $bs_value = $form_state->getValue('bs_value');
-      if(!($bs_value >= 0) && ($bs_value <= 10)) {
+      if(!($bs_value >= 0) || !($bs_value <= 10)) {
         // Set an error if password and confirm password field value doesn't match
         $form_state->setErrorByName('bs_value',$this->t("Blood Sugar value can only be between 0 to 10"));
       }
